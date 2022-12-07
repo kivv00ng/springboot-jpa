@@ -30,7 +30,7 @@ class CustomerRepositoryTest {
 
         log.info("{}, {}", findCustomer.getLastName(), findCustomer.getFirstName());
 
-        assertThat(findCustomer).isEqualTo(customer);
+        assertThat(findCustomer).usingRecursiveComparison().isEqualTo(customer);
     }
 
     @Test
@@ -57,8 +57,9 @@ class CustomerRepositoryTest {
 
         customerRepository.save(customer);
         Customer findCustomer = customerRepository.findById(1L).get();
-        assertThat(customer).isEqualTo(findCustomer);
-        
+        assertThat(customer).usingRecursiveComparison().isEqualTo(findCustomer);
+        //assertThat(customer).isEqualTo(findCustomer);
+
         customerRepository.deleteById(1L);
         assertThat(customerRepository.findById(1L).isEmpty()).isTrue();
     }
